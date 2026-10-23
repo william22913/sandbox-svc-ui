@@ -135,10 +135,18 @@ Four behaviours worth knowing before the next feature:
   installed Playwright wanted 1248. The smoke suite runs `channel: 'chrome'`
   against system Chrome instead. Re-run `npx playwright install` when the
   network allows and drop the channel override.
-- **`Dockerfile` and `nginx.conf` were written but never built.** Nested-route
-  refresh was verified against `vite preview` only (`/favorites` → 200 via SPA
-  fallback; `nginx.conf` has `try_files $uri /index.html`). A real image build
-  is still outstanding.
+- **The Docker image did not start on the first real run.** `proxy_pass
+  http://sandbox-svc:8080/` is resolved when nginx loads its config, so the
+  container exited with `host not found in upstream "sandbox-svc"` whenever the
+  backend was not already running — a failure `vite preview` cannot reproduce,
+  because preview serves the SPA without nginx. Fixed by resolving at request
+  time (`resolver 127.0.0.11` + a variable + `rewrite`, since a variable in
+  `proxy_pass` drops the original URI unless it is rewritten by hand).
+  Keep the image in the verification loop; a green preview proves less than it
+  looks like it does.
+- **Verified running now:** `docker run -p 8081:80` serves `/`, `/favorites`,
+  and `/catalog/123` as 200 via SPA fallback; assets 200; `/api/*` returns 502
+  with no backend, which is the correct failure.
 - **The `react-frontend-standards` skill was not in the plugin cache.** It was
   read from `D:\code\my-local-code\vendor\nexcraft\skills\react-frontend-standards`.
   If that path is not canonical, the standards applied here may drift from the
