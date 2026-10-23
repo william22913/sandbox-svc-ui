@@ -1,0 +1,46 @@
+{
+  "app": {
+    "name": "Sandbox",
+    "catalog": "Katalog",
+    "favorites": "Favorit Saya"
+  },
+  "favorites": {
+    "title": "Favorit Saya",
+    "subtitle": "Item yang Anda simpan untuk dilihat lagi.",
+    "columns": {
+      "image": "Gambar",
+      "name": "Nama Item",
+      "category": "Kategori",
+      "price": "Harga",
+      "availability": "Ketersediaan",
+      "date": "Tanggal Difavoritkan",
+      "actions": "Aksi"
+    },
+    "available": "Tersedia",
+    "unavailable": "Tidak Tersedia",
+    "remove": "Hapus dari favorit",
+    "open": "Buka detail item",
+    "emptyTitle": "Belum ada favorit",
+    "emptyCopy": "Item yang Anda favoritkan akan muncul di sini.",
+    "browseCatalog": "Jelajahi Katalog",
+    "loadError": "Favorit gagal dimuat.",
+    "retry": "Coba lagi",
+    "removeError": "Favorit gagal dihapus. Coba lagi.",
+    "capError": "Anda dapat menyimpan hingga 500 favorit.",
+    "saveError": "Gagal menyimpan. Coba lagi.",
+    "save": "Simpan",
+    "saved": "Tersimpan"
+  },
+  "catalog": {
+    "title": "Katalog",
+    "subtitle": "Pilih item untuk dilihat detailnya.",
+    "empty": "Belum ada item katalog.",
+    "itemSection": "Informasi Item"
+  },
+  "login": {
+    "title": "Masuk",
+    "subtitle": "Masuk untuk menyimpan dan melihat favorit Anda.",
+    "action": "Masuk",
+    "stubNote": "Halaman masuk ini adalah pengganti halaman login produk yang sudah ada di lingkungan ini."
+  }
+}
