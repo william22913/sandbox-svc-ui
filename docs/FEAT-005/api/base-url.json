@@ -1,0 +1,9 @@
+{
+  "service": "sandbox-svc",
+  "feature": "FEAT-005",
+  "environment": "local",
+  "base_url": "http://localhost:18080",
+  "source": "user",
+  "verified_at": "2026-11-08",
+  "local_only": true
+}
