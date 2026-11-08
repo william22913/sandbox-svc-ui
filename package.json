@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint src --ext .js,.jsx",
     "test": "vitest run",
-    "test:e2e": "node e2e/smoke.mjs"
+    "test:e2e": "node e2e/smoke.mjs",
+    "test:e2e:favorites-summary": "node e2e/favorites-summary.mjs"
   },
   "dependencies": {
     "antd": "^4.24.16",

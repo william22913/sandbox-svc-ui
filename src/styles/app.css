@@ -48,12 +48,71 @@ a:hover {
   padding: 24px 16px;
 }
 
+.shell__brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 12px 24px;
+}
+
 .shell__brand {
   font-family: var(--font-title);
   font-size: 20px;
   font-weight: 600;
   color: var(--text);
-  padding: 0 12px 24px;
+}
+
+.shell__badge {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  line-height: 0;
+}
+
+/* FEAT-005 summary tooltip: small, dark, 22px surface (UIMap tokens). */
+.favorite-summary-tooltip {
+  max-width: 280px;
+  /* Display-only: an invisible tooltip must never eat a click. */
+  pointer-events: none;
+}
+
+.favorite-summary-tooltip .ant-tooltip-inner {
+  min-width: 0;
+  min-height: 22px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* MO-001/MO-002: 100ms ease-out fade, no slide or scale. The transition
+   lives on the base classes so the browser sees it before the value changes. */
+.favorite-summary-fade-appear,
+.favorite-summary-fade-enter,
+.favorite-summary-fade-leave {
+  transition: opacity 100ms ease-out;
+}
+
+.favorite-summary-fade-appear,
+.favorite-summary-fade-enter {
+  opacity: 0;
+}
+
+.favorite-summary-fade-appear-active,
+.favorite-summary-fade-enter-active {
+  opacity: 1;
+}
+
+.favorite-summary-fade-leave {
+  opacity: 1;
+}
+
+.favorite-summary-fade-leave-active {
+  opacity: 0;
 }
 
 .shell__nav {
@@ -451,7 +510,7 @@ a:hover {
     padding: 12px 16px;
   }
 
-  .shell__brand {
+  .shell__brand-row {
     padding: 0 0 8px;
   }
 

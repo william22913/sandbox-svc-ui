@@ -11,6 +11,21 @@ export async function getFavorites({ page, pageSize }) {
   return data;
 }
 
+/**
+ * GET /v1/favorites/count — FEAT-004 badge count. The path carries `/v1`:
+ * nginx strips only `/api`, so `/api/v1/...` reaches the backend as `/v1/...`.
+ */
+export async function getFavoriteCount() {
+  const { data } = await client.get('/v1/favorites/count');
+  return data;
+}
+
+/** GET /v1/favorites/summary — FEAT-005 aggregate, no input (REQ-001/REQ-011). */
+export async function getFavoritesSummary() {
+  const { data } = await client.get('/v1/favorites/summary');
+  return data;
+}
+
 /** POST /favorites { item_id } — idempotent (REQ-005). */
 export async function createFavorite(itemId) {
   const { data } = await client.post('/favorites', { item_id: itemId });

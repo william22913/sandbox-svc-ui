@@ -5,7 +5,13 @@ vi.mock('../axios/client', () => ({
 }));
 
 import client from '../axios/client';
-import { createFavorite, deleteFavorite, getFavorites } from './favoriteAdapter';
+import {
+  createFavorite,
+  deleteFavorite,
+  getFavoriteCount,
+  getFavorites,
+  getFavoritesSummary,
+} from './favoriteAdapter';
 
 describe('favoriteAdapter', () => {
   beforeEach(() => {
@@ -36,5 +42,21 @@ describe('favoriteAdapter', () => {
     await deleteFavorite('item/1');
 
     expect(client.delete).toHaveBeenCalledWith('/favorites/item%2F1');
+  });
+
+  it('requests the FEAT-004 count from the /v1 path', async () => {
+    client.get.mockResolvedValue({ data: { payload: { count: 5 } } });
+
+    await getFavoriteCount();
+
+    expect(client.get).toHaveBeenCalledWith('/v1/favorites/count');
+  });
+
+  it('requests the FEAT-005 summary from the /v1 path with no input', async () => {
+    client.get.mockResolvedValue({ data: { payload: { total: 5, discontinued: 1 } } });
+
+    await getFavoritesSummary();
+
+    expect(client.get).toHaveBeenCalledWith('/v1/favorites/summary');
   });
 });

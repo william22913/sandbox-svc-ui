@@ -10,7 +10,26 @@ integration_branch: feat/FEAT-005
 stack: go
 frontend_repo: https://github.com/william22913/sandbox-svc-ui
 frontend_base_branch: main
-dev_feedback: []
+dev_feedback:
+  - >-
+    DF-001 (open questions 3, FEAT-004 frontend): the FE tree had no badge and
+    no FavoriteCountProvider, so FEAT-004's frontend was implemented on
+    feat/FEAT-005-dev-favorites-summary-tooltip from FEAT-004's published
+    design (GET /v1/favorites/count -> payload.count, badge hidden at
+    0/loading/error, 99+ cap) rather than a second badge. The FEAT-004 ->
+    FEAT-005 sequence is therefore collapsed into one PR in sandbox-svc-ui; if
+    FEAT-004's frontend lands separately, that badge and provider are the code
+    to reconcile. FEAT-004's backend is also not in the deployed build: the
+    released sandbox-svc answers 405 for /v1/favorites/count while
+    /v1/favorites/summary exists and is guarded (docs/FEAT-005/fe-test-results.md
+    section 11). Recorded by /fe-dev on 2026-11-08.
+  - >-
+    DF-002 (open questions 6, FEAT-001 contract): FEAT-001's adapters still
+    call /favorites without /v1 and read the paged data/page/page_size/total
+    envelope, while the BE serves /v1/favorites with payload.favorites.
+    FEAT-005's summary adapter uses /v1 and the envelope; the FEAT-001 adapter
+    and list mapping were left untouched and need a separate reconciliation.
+    Recorded by /fe-dev on 2026-11-08.
 code_prep_feedback: []
 sources: []
 pr_url: https://github.com/william22913/sandbox-docs/pull/25

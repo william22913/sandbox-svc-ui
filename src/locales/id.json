@@ -2,7 +2,8 @@
   "app": {
     "name": "Sandbox",
     "catalog": "Katalog",
-    "favorites": "Favorit Saya"
+    "favorites": "Favorit Saya",
+    "favoriteCount": "{{count}} favorit"
   },
   "favorites": {
     "title": "Favorit Saya",

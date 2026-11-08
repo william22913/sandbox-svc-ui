@@ -1,12 +1,15 @@
 import { useCallback, useState } from 'react';
 import { addFavorite, removeFavorite } from '../../../core/services/favoriteService';
 import { isLimitReached, isUnauthorized } from '../../../helpers/redirectToLogin';
+import { useFavoriteCount } from '../FavoriteCountProvider';
 
 /**
  * Optimistic star toggle (architecture: flip immediately, roll back on failure,
  * inline error next to the star, no toast). REQ-001/003/007/011.
+ * A successful action refreshes the FEAT-004 count and FEAT-005 summary.
  */
 export default function useFavoriteStar(itemId, initialFavorited = false) {
+  const { refresh, refreshSummary } = useFavoriteCount();
   const [favorited, setFavorited] = useState(Boolean(initialFavorited));
   const [inFlight, setInFlight] = useState(false);
   const [error, setError] = useState(null);
@@ -20,6 +23,8 @@ export default function useFavoriteStar(itemId, initialFavorited = false) {
     try {
       if (next) await addFavorite(itemId);
       else await removeFavorite(itemId);
+      refresh();
+      refreshSummary();
     } catch (err) {
       setFavorited(!next);
       if (isUnauthorized(err)) return;
@@ -27,7 +32,7 @@ export default function useFavoriteStar(itemId, initialFavorited = false) {
     } finally {
       setInFlight(false);
     }
-  }, [favorited, inFlight, itemId]);
+  }, [favorited, inFlight, itemId, refresh, refreshSummary]);
 
   return { favorited, inFlight, error, toggle };
 }
