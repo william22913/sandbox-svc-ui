@@ -8,8 +8,8 @@ testcase_version: 1
 run_date: 2026-11-08
 api_contract: docs/FEAT-005/api/openapi.yaml
 api_contract_sha256: c4bf73b05c8478c4fd476e6ad34667b10b88b80ba11379c55961cfe9ce0b14e8
-fe_pr: pending
-tested_commit: pending
+fe_pr: https://github.com/william22913/sandbox-svc-ui/pull/2
+tested_commit: 937f313c6def913650e5311613745512bc71b276
 ---
 
 # FEAT-005 — Favorites Summary and Badge Tooltip — FE test results
