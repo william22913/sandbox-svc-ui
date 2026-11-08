@@ -8,6 +8,8 @@ export default defineConfig({
       '/api': {
         target: process.env.VITE_PROXY_TARGET || 'http://localhost:8080',
         changeOrigin: true,
+        // nginx strips `/api`; mirror that so `/api/v1/...` reaches `/v1/...`.
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },

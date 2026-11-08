@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { fetchFavorites, removeFavorite } from '../../../core/services/favoriteService';
 import { isUnauthorized } from '../../../helpers/redirectToLogin';
+import { useFavoriteCount } from '../FavoriteCountProvider';
 
 export default function useFavorites({ initialPage = 1, initialPageSize = 20 } = {}) {
+  const { refresh, refreshSummary } = useFavoriteCount();
   const [page, setPage] = useState(initialPage);
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [items, setItems] = useState([]);
@@ -63,6 +65,8 @@ export default function useFavorites({ initialPage = 1, initialPageSize = 20 } =
 
       try {
         await removeFavorite(itemId);
+        refresh();
+        refreshSummary();
         if (nextItems.length === 0 && nextTotal > 0 && page > 1) {
           setPage((current) => current - 1);
         } else if (nextTotal > 0) {
@@ -76,7 +80,7 @@ export default function useFavorites({ initialPage = 1, initialPageSize = 20 } =
         setActionError('removeError');
       }
     },
-    [items, total, page, pageSize, load]
+    [items, total, page, pageSize, load, refresh, refreshSummary]
   );
 
   return {

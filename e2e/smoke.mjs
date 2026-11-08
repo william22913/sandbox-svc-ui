@@ -40,11 +40,11 @@ const items = [
 
 async function main() {
   await mkdir(ARTIFACTS, { recursive: true });
-  const browser = await chromium.launch(
-    process.env.CHROME_PATH
-      ? { executablePath: process.env.CHROME_PATH }
-      : { channel: 'chrome' }
-  );
+  // --no-sandbox: the CI container cannot set up Chromium's own sandbox.
+  const browser = await chromium.launch({
+    args: ['--no-sandbox'],
+    ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}),
+  });
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 
   await page.route('**/api/favorites**', async (route) => {
